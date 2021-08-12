@@ -7,4 +7,4 @@ Home-Red is a collection of [Node-Red](https://nodered.org/) flows for home assi
 
 ## How to install
 
-To install this repo you must first enable the projects feature in your settings.js file and install git if it is not already installed. You can check if git is installed by using the command "``git --version``".
+To install this repo you must first enable the projects feature in your settings.js file and install git if it is not already installed. You can check if git is installed by using the command ``git --version``.
