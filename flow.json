@@ -1,1 +1,250 @@
-[]
+[
+    {
+        "id": "bb930301c528fbfa",
+        "type": "tab",
+        "label": "Temperature",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5906173829367ed9",
+        "type": "group",
+        "z": "bb930301c528fbfa",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "6e4f8fe8469ce7e2",
+            "7663f53adc62fad0",
+            "033d7e5de51ce216",
+            "363acb9cf27901ea",
+            "51c37a0ce69bfd70",
+            "1553699f8abdfc67",
+            "98a51a25e7c86ee2"
+        ],
+        "x": 14,
+        "y": 79,
+        "w": 672,
+        "h": 182
+    },
+    {
+        "id": "6e4f8fe8469ce7e2",
+        "type": "ha-entity",
+        "z": "bb930301c528fbfa",
+        "g": "5906173829367ed9",
+        "name": "",
+        "server": "",
+        "version": 1,
+        "debugenabled": false,
+        "outputs": 1,
+        "entityType": "sensor",
+        "config": [
+            {
+                "property": "name",
+                "value": "Real Feal"
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": "mdi:thermometer"
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "°F"
+            }
+        ],
+        "state": "Hi/Output",
+        "stateType": "flow",
+        "attributes": [],
+        "resend": true,
+        "outputLocation": "",
+        "outputLocationType": "none",
+        "inputOverride": "allow",
+        "outputOnStateChange": false,
+        "outputPayload": "$entity().state ? \"on\": \"off\"",
+        "outputPayloadType": "jsonata",
+        "x": 590,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7663f53adc62fad0",
+        "type": "poll-state",
+        "z": "bb930301c528fbfa",
+        "g": "5906173829367ed9",
+        "name": "Temp Sensor",
+        "server": "",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "updateinterval": "60",
+        "updateIntervalUnits": "seconds",
+        "outputinitially": false,
+        "outputonchanged": false,
+        "entity_id": "",
+        "state_type": "str",
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "51c37a0ce69bfd70"
+            ]
+        ]
+    },
+    {
+        "id": "033d7e5de51ce216",
+        "type": "poll-state",
+        "z": "bb930301c528fbfa",
+        "g": "5906173829367ed9",
+        "name": "Humidity Sensor",
+        "server": "",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "updateinterval": "60",
+        "updateIntervalUnits": "seconds",
+        "outputinitially": false,
+        "outputonchanged": false,
+        "entity_id": "",
+        "state_type": "str",
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "363acb9cf27901ea"
+            ]
+        ]
+    },
+    {
+        "id": "363acb9cf27901ea",
+        "type": "change",
+        "z": "bb930301c528fbfa",
+        "g": "5906173829367ed9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Hi/Humidity",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "51c37a0ce69bfd70",
+        "type": "change",
+        "z": "bb930301c528fbfa",
+        "g": "5906173829367ed9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Hi/Temp",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 220,
+        "wires": [
+            [
+                "1553699f8abdfc67"
+            ]
+        ]
+    },
+    {
+        "id": "1553699f8abdfc67",
+        "type": "function",
+        "z": "bb930301c528fbfa",
+        "g": "5906173829367ed9",
+        "name": "",
+        "func": "var T = flow.get(\"Hi/Temp\");\nvar RH = flow.get(\"Hi/Humidity\");\nvar HI = 0;\n\nif (T <= 40.0) {\n    HI = T\n}\nelse {\n    HI = -42.379 + 2.04901523 * T + 10.14333127 * RH - 0.22475541 * T * RH - 0.00683783 * T * T - 0.05481717 * RH * RH + 0.00122874 * T * T * RH + 0.00085282 * T * RH * RH - 0.00000199 * T * T * RH * RH\n\n    if (RH < 13 && T >= 80 && T <= 112) {\n        // ADJUSTMENT = [(13-RH)/4]*SQRT{[17-ABS(T-95.)]/17}\n        var adjust = ((13 - RH) / 4) * Math.sqrt(17 - Math.abs(T - 95) / 17)\n        HI -= adjust\n    } else if (RH > 85 && T > 80 && T < 87) {\n        // ADJUSTMENT = [(RH-85)/10] * [(87-T)/5]\n        var adjust = ((RH - 85) / 10) * ((87 - T) / 5)\n        HI += adjust\n    } else if (T < 80) {\n        // HI = 0.5 * {T + 61.0 + [(T-68.0)*1.2] + (RH*0.094)} \n        HI = 0.5 * (T + 61.0 + ((T - 68.0) * 1.2) + (RH * 0.094))\n    }\n}\nHI = Math.round(HI);\nflow.set(\"Hi/Output\", HI);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 220,
+        "wires": [
+            [
+                "6e4f8fe8469ce7e2"
+            ]
+        ]
+    },
+    {
+        "id": "98a51a25e7c86ee2",
+        "type": "comment",
+        "z": "bb930301c528fbfa",
+        "g": "5906173829367ed9",
+        "name": "Heat Index Calculation",
+        "info": "",
+        "x": 140,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "7430bbc0b2d95204",
+        "type": "comment",
+        "z": "bb930301c528fbfa",
+        "name": "This Flow Contains Flows Regarding Temperature",
+        "info": "",
+        "x": 200,
+        "y": 40,
+        "wires": []
+    }
+]
